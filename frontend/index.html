@@ -434,8 +434,8 @@
     <div class="rpm-bar-wrap">
       <div class="rpm-bar-labels">
         <span>0</span>
-        <span>500</span>
-        <span>1000</span>
+        <span>2000</span>
+        <span>4095</span>
       </div>
       <div class="rpm-bar-track">
         <div class="rpm-bar-fill" id="rpmBarFill" style="width:0%"></div>
@@ -480,10 +480,16 @@
       <span class="sp-limits">0</span>
       <input type="range" id="spSlider" min="0" max="4095" step="10" value="2000"
              oninput="syncSP(this.value)">
+<<<<<<< HEAD
+      <span class="sp-limits">4095 RPM</span>
+      <input type="number" class="sp-number-input" id="spInput"
+             min="0" max="4095" step="10" value="2000"
+=======
       <span class="sp-limits">4095</span>
       <input type="number" class="sp-number-input" id="spInput"
              min="0" max="4095" step="10" value="2000"
 
+>>>>>>> 33c2601b6b0c95d4c52ee7cd2dcbb8e49ea53865
              oninput="syncSP(this.value)">
       <button class="btn-apply" id="btnApply" onclick="sendSetpoint()">Aplicar</button>
     </div>
@@ -545,7 +551,7 @@ const chart = new Chart(ctx, {
         bodyColor: "#ccc",
         padding: 10,
         callbacks: {
-          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} RPM`
+          label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)}`
         }
       }
     },
@@ -560,7 +566,7 @@ const chart = new Chart(ctx, {
         max: RPM_MAX,
         grid:   { color: "#141414" },
         ticks:  { color: "#444", font: { family: "Share Tech Mono", size: 10 },
-                  callback: v => v + " rpm" },
+                  callback: v => v},
         border: { color: "#1f1f1f" }
       }
     }
