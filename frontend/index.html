@@ -410,7 +410,7 @@
   <div class="header-left">
     <div>
       <h1>PID RPM Monitor</h1>
-      <p>Control de velocidad — ESP32</p>
+      <p>Variable controlada — ESP32</p>
     </div>
   </div>
   <div class="header-right">
@@ -429,7 +429,7 @@
   <div class="panel" id="panel-rpm">
     <div class="rpm-label">RPM ACTUAL</div>
     <div class="rpm-value" id="rpmValue">---</div>
-    <div class="rpm-unit">RPM</div>
+    <div class="rpm-unit"></div>
 
     <div class="rpm-bar-wrap">
       <div class="rpm-bar-labels">
@@ -478,11 +478,12 @@
     <div class="panel-label">Setpoint</div>
     <div class="sp-control">
       <span class="sp-limits">0</span>
-      <input type="range" id="spSlider" min="0" max="1000" step="10" value="500"
+      <input type="range" id="spSlider" min="0" max="4095" step="10" value="2000"
              oninput="syncSP(this.value)">
-      <span class="sp-limits">1000 RPM</span>
+      <span class="sp-limits">4095</span>
       <input type="number" class="sp-number-input" id="spInput"
-             min="0" max="1000" step="10" value="500"
+             min="0" max="4095" step="10" value="2000"
+
              oninput="syncSP(this.value)">
       <button class="btn-apply" id="btnApply" onclick="sendSetpoint()">Aplicar</button>
     </div>
@@ -496,7 +497,7 @@
 const API = "https://pid-rpm-monitor-production.up.railway.app";
 
 const RPM_MIN = 0;
-const RPM_MAX = 1000;
+const RPM_MAX = 4095;
 
 // ─── Chart ────────────────────────────────────────────────────────────────────
 const ctx = document.getElementById("mainChart").getContext("2d");
@@ -639,7 +640,7 @@ async function sendSetpoint() {
   const sp  = parseFloat(document.getElementById("spInput").value);
   const btn = document.getElementById("btnApply");
 
-  if (isNaN(sp) || sp < 0 || sp > 1000) return;
+  if (isNaN(sp) || sp < 0 || sp > 4095) return;
 
   try {
     await fetch(`${API}/api/setpoint`, {
