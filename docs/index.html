@@ -675,7 +675,7 @@ fetch(`${API}/api/setpoint`)
 // Iniciar polling
 fetchLatest();
 fetchChart();
-setInterval(fetchLatest, 500);
+setInterval(fetchLatest, 400);
 setInterval(fetchChart,  2000);
 </script>
 </body>
