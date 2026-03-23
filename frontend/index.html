@@ -427,7 +427,7 @@
 
   <!-- RPM actual -->
   <div class="panel" id="panel-rpm">
-    <div class="rpm-label">RPM ACTUAL</div>
+    <div class="rpm-label">VARIABLE CONTROLADA</div>
     <div class="rpm-value" id="rpmValue">---</div>
     <div class="rpm-unit"></div>
 
@@ -461,7 +461,7 @@
     <div class="chart-legend">
       <div class="legend-item">
         <div class="legend-line" style="background:var(--green)"></div>
-        RPM actual
+        Variable actual
       </div>
       <div class="legend-item">
         <div class="legend-line" style="background:var(--amber);opacity:0.7;border-top:2px dashed var(--amber);height:0"></div>
@@ -480,16 +480,9 @@
       <span class="sp-limits">0</span>
       <input type="range" id="spSlider" min="0" max="4095" step="10" value="2000"
              oninput="syncSP(this.value)">
-<<<<<<< HEAD
-      <span class="sp-limits">4095 RPM</span>
-      <input type="number" class="sp-number-input" id="spInput"
-             min="0" max="4095" step="10" value="2000"
-=======
       <span class="sp-limits">4095</span>
       <input type="number" class="sp-number-input" id="spInput"
              min="0" max="4095" step="10" value="2000"
-
->>>>>>> 33c2601b6b0c95d4c52ee7cd2dcbb8e49ea53865
              oninput="syncSP(this.value)">
       <button class="btn-apply" id="btnApply" onclick="sendSetpoint()">Aplicar</button>
     </div>
@@ -608,11 +601,11 @@ async function fetchLatest() {
     document.getElementById("rpmBarSp").style.left = Math.min(100, spPct) + "%";
 
     // SP y error
-    document.getElementById("spValue").textContent = sp.toFixed(1) + " rpm";
+    document.getElementById("spValue").textContent = sp.toFixed(1);
     const errEl = document.getElementById("errorValue");
-    errEl.textContent  = (error >= 0 ? "+" : "") + error.toFixed(2) + " rpm";
-    errEl.style.color  = Math.abs(error) < 20 ? "var(--green)" :
-                         Math.abs(error) < 80 ? "var(--amber)" : "var(--red)";
+    errEl.textContent  = (error >= 0 ? "+" : "") + error.toFixed(2);
+    errEl.style.color  = Math.abs(error) < 50 ? "var(--green)" :
+                         Math.abs(error) < 200 ? "var(--amber)" : "var(--red)";
 
     setOnline(true);
   } catch (e) {
@@ -637,7 +630,7 @@ async function fetchChart() {
 
 // ─── Setpoint control ─────────────────────────────────────────────────────────
 function syncSP(val) {
-  val = Math.min(1000, Math.max(0, parseFloat(val) || 0));
+  val = Math.min(4095, Math.max(0, parseFloat(val) || 0));
   document.getElementById("spSlider").value = val;
   document.getElementById("spInput").value  = val;
 }
